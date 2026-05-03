@@ -14,23 +14,23 @@ class AtomEntity:
 
 
 @dataclass
-class AtomUri(AtomEntity):
+class AtomUri:
     uri: str
 
 
 @dataclass
-class AtomEmailAddress(AtomEntity):
+class AtomEmailAddress:
     email: str
 
 
 @dataclass
-class AtomText(AtomEntity):
+class AtomText:
     dataType: str  # text, html, or xhtml
     data: str
 
 
 @dataclass
-class AtomPerson(AtomEntity):
+class AtomPerson:
     name: str
     uri: AtomUri | None
     email: AtomEmailAddress | None
@@ -38,24 +38,27 @@ class AtomPerson(AtomEntity):
 
 
 @dataclass
-class AtomInlineContent(AtomEntity):
+class AtomInlineContent:
     dataType: str | None  # can be one of the text dataType or a mimeType
     data: str
 
 
 @dataclass
-class AtomOutOfLineContent(AtomEntity):
+class AtomOutOfLineContent:
     dataType: str | None
     src: str
 
 
+AtomContent = AtomInlineContent | AtomOutOfLineContent
+
+
 @dataclass
-class AtomId(AtomEntity):
+class AtomId:
     uri: AtomUri
 
 
 @dataclass
-class AtomCategory(AtomEntity):
+class AtomCategory:
     term: str
     scheme: AtomUri | None
     label: str | None
@@ -63,14 +66,14 @@ class AtomCategory(AtomEntity):
 
 
 @dataclass
-class AtomGenerator(AtomEntity):
+class AtomGenerator:
     uri: str | None
     version: str | None
     text: str
 
 
 @dataclass
-class AtomLink(AtomEntity):
+class AtomLink:
     href: AtomUri
     rel: str | AtomUri | None
     type: str | None
@@ -81,22 +84,22 @@ class AtomLink(AtomEntity):
 
 
 @dataclass
-class AtomLogo(AtomEntity):
+class AtomLogo:
     uri: AtomUri
 
 
 @dataclass
-class AtomIcon(AtomEntity):
+class AtomIcon:
     uri: AtomUri
 
 
 @dataclass
-class AtomDate(AtomEntity):
+class AtomDate:
     datetime: datetime
 
 
 @dataclass
-class AtomSource(AtomEntity):
+class AtomSource:
     authors: list[AtomPerson]
     categories: list[AtomCategory] | None
     contributors: list[AtomPerson] | None
@@ -113,7 +116,7 @@ class AtomSource(AtomEntity):
 
 
 @dataclass
-class AtomEntry(AtomEntity):
+class AtomEntry:
     authors: list[AtomPerson] | None
     categories: list[AtomCategory] | None
     content: AtomInlineContent | AtomOutOfLineContent | None
@@ -130,7 +133,7 @@ class AtomEntry(AtomEntity):
 
 
 @dataclass
-class AtomFeed(AtomEntity):
+class AtomFeed:
     authors: list[AtomPerson]
     categories: list[AtomCategory] | None
     contributors: list[AtomPerson] | None
@@ -148,5 +151,5 @@ class AtomFeed(AtomEntity):
 
 
 @dataclass
-class Atom(AtomEntity):
+class Atom:
     feed: AtomFeed
